@@ -1,7 +1,7 @@
 <!-- Footer -->
     <footer class="bg-dark text-white py-3 mt-auto">
         <div class="container text-center">
-            <p class="mb-0">&copy; <?php echo date('Y'); ?> CMS PDO System.</p>
+            <p class="mb-0">&copy; <?php echo date('Y'); ?> CMS PDO System Admin.</p>
         </div>
     </footer>
 
