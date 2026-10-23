@@ -17,5 +17,6 @@
 
     // Define global constants
     define("APP_NAME", "CMS PDO System");
+    define("PROJECT_DIR", "cms-pdo");
 
 ?>
