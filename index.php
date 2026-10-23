@@ -2,19 +2,6 @@
     include "partials/header.php"; 
     include "partials/navbar.php";
     include "partials/hero.php";
-
-    $user = new User();
-
-    var_dump(get_declared_classes());
-
-    // $db = new Database();
-
-    // if($db) {
-    //     echo 'CONNECTED';
-    // }
-
-    // var_dump($db->getConnection());
-
 ?>
 
 <!-- Main Content -->
