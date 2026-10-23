@@ -1,0 +1,33 @@
+#Additional files
+_project-files
+
+# Dependencies
+node_modules/
+/vendor/
+composer.phar
+
+# Environment & Credentials
+.env
+.env.*
+!.env.example
+
+# Logs & Cache
+/storage/*.key
+*.log
+/cache/
+/tmp/
+
+# Build data
+/build/
+
+# OS Specific
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE & Editor specific (better kept in global gitignore, but safe to list)
+.idea/
+*.iml
+*.sublime-workspace
+*.sublime-project
+.vscode/
