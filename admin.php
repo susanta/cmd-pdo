@@ -7,6 +7,13 @@
     if(!$user->isLoggedIn()) {
         redirect("login.php");
     }
+
+    $article = new Article();
+
+    $userId = $_SESSION['user_id'];
+
+    $userArticles = $article->getArticlesByUser($userId);
+    // var_dump($userArticles);
 ?>
 
 <!-- Main Content -->
@@ -27,35 +34,23 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Example Article Row -->
-                <tr>
-                    <td>1</td>
-                    <td>Article Title 1</td>
-                    <td>Person_1 Name</td>
-                    <td>January 1, 2045</td>
-                    <td>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus feugiat elit vitae enim lacinia semper...
-                    </td>
-                    <td>
-                        <a href="edit-article.html?id=1" class="btn btn-sm btn-primary me-1">Edit</a>
-                        <button class="btn btn-sm btn-danger" onclick="confirmDelete(1)">Delete</button>
-                    </td>
-                </tr>
-                <!-- Additional Article Rows -->
-                <tr>
-                    <td>2</td>
-                    <td>Article Title 2</td>
-                    <td>Person_2 Name</td>
-                    <td>February 15, 2045</td>
-                    <td>
-                        Quisque fermentum, nisl a pulvinar tincidunt, nunc purus laoreet massa, nec tempor arcu urna vel nisi...
-                    </td>
-                    <td>
-                        <a href="edit-article.html?id=2" class="btn btn-sm btn-primary me-1">Edit</a>
-                        <button class="btn btn-sm btn-danger" onclick="confirmDelete(2)">Delete</button>
-                    </td>
-                </tr>
-                <!-- You can add more articles here -->
+                <?php if(!empty($userArticles)) : ?>
+                    <?php foreach($userArticles as $userArticleItem) : ?>
+                        <tr>
+                            <td><?php echo $userArticleItem->id ?></td>
+                            <td><?php echo $userArticleItem->title ?></td>
+                            <td><?php echo $_SESSION['username'] ?></td>
+                            <td><?php echo $article->formatCreatedAt($userArticleItem->created_at); ?></td>
+                            <td>
+                                <?php echo $article->getExcerpt($userArticleItem->content); ?>
+                            </td>
+                            <td>
+                                <a href="edit-article.php?id=<?php echo $userArticleItem->id; ?>" class="btn btn-sm btn-primary me-1">Edit</a>
+                                <button class="btn btn-sm btn-danger" onclick="confirmDelete(1)">Delete</button>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php endif; ?>                
             </tbody>
         </table>
     </div>
