@@ -5,7 +5,8 @@ function base_url($path = "") {
     $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https://' : 'http://';
     $host = $_SERVER['HTTP_HOST'];
 
-    $baseUrl = $protocol . $host . '/' . PROJECT_DIR;
+    // $baseUrl = $protocol . $host . '/' . PROJECT_DIR;
+    $baseUrl = $protocol . $host . '/projects/' . PROJECT_DIR;
 
     return $baseUrl . '/' . ltrim($path, '/');
 }
