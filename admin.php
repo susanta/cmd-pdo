@@ -24,7 +24,8 @@
                     <th>Author</th>
                     <th>Published Date</th>
                     <th>Excerpt</th>
-                    <th>Actions</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -39,8 +40,14 @@
                                 <?php echo $article->getExcerpt($userArticleItem->content); ?>
                             </td>
                             <td>
-                                <a href="edit-article.php?id=<?php echo $userArticleItem->id; ?>" class="btn btn-sm btn-primary me-1">Edit</a>
-                                <button class="btn btn-sm btn-danger" onclick="confirmDelete(1)">Delete</button>
+                                <a href="edit-article.php?id=<?php echo $userArticleItem->id; ?>" class="btn btn-sm btn-primary me-1">Edit</a>                                
+                            </td>
+                            <td>
+                                <form action="<?php echo base_url("delete-article.php") ?>" method="POST">
+                                    <input type="hidden" name="id" value="<?php echo $userArticleItem->id; ?>">
+                                    <!-- <button class="btn btn-sm btn-danger" onclick="confirmDelete(1)">Delete</button> -->
+                                     <button class="btn btn-sm btn-danger">Delete</button>
+                                </form>
                             </td>
                         </tr>
                     <?php endforeach; ?>
