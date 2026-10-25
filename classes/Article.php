@@ -37,10 +37,20 @@
             $article = $stmt->fetch(PDO::FETCH_OBJ);
 
             if($article) {
-                return $article;
+                if($article->user_id === $_SESSION['user_id']) {
+                    return $article;
+                } else {
+                    redirect("admin.php");
+                }
             } else {
                 return false;
             }
+
+            // if($article) {
+            //     return $article;
+            // } else {
+            //     return false;
+            // }
         }
 
 
