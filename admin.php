@@ -1,12 +1,6 @@
 <?php 
     include "partials/admin/header.php"; 
-    include "partials/admin/navbar.php";
-
-    $user = new User();
-
-    if(!$user->isLoggedIn()) {
-        redirect("login.php");
-    }
+    include "partials/admin/navbar.php";    
 
     $article = new Article();
 
