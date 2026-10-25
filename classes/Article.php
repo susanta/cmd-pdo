@@ -88,17 +88,17 @@
         }
 
 
-        public function create($title, $content, $author_id, $created_at)
+        public function create($title, $content, $author_id, $created_at, $imagePath)
         {
-            $query = "INSERT INTO " . $this->table . " (title, content, user_id, created_at)
-                      VALUES (:title, :content, :user_id, :created_at)";
+            $query = "INSERT INTO " . $this->table . " (title, content, user_id, created_at, image)
+                      VALUES (:title, :content, :user_id, :created_at, :image)";
             $stmt = $this->conn->prepare($query);
 
             $stmt->bindParam(":title", $title);
             $stmt->bindParam(":content", $content);
             $stmt->bindParam(":user_id", $author_id);
             $stmt->bindParam(":created_at", $created_at);
-            // $stmt->bindParam(":image", $imagePath);
+            $stmt->bindParam(":image", $imagePath);
 
             return $stmt->execute();
         }
