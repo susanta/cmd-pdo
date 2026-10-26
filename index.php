@@ -16,11 +16,13 @@
             <div class="row mb-4">
                 <div class="col-md-4">
                     <?php if(!empty($articleItem->image)) : ?>
+                        <a href="article.php?id=<?php echo $articleItem->id; ?>">
                         <img
                             src="<?php echo htmlspecialchars($articleItem->image) ?>"
                             class="img-fluid"
                             alt="Blog Post Image"
                         >
+                        </a>
                     <?php else : ?>
                         <img
                             src="https://via.placeholder.com/350x200"
