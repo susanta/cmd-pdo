@@ -174,5 +174,27 @@
 
             return '';
         }
+
+        public function update($articleId, $title, $content, $author_id, $created_at, $imagePath)
+        {
+            $query = "UPDATE " . $this->table . " SET title = :title, content = :content, user_id = :user_id, created_at = :created_at";
+            if($imagePath) {
+                $query .= ", image = :image";
+            }
+            $query .= " WHERE id = :id";
+
+            $stmt = $this->conn->prepare($query);
+
+            $stmt->bindParam(":id", $articleId, PDO::PARAM_INT);
+            $stmt->bindParam(":title", $title);
+            $stmt->bindParam(":content", $content);
+            $stmt->bindParam(":user_id", $author_id);
+            $stmt->bindParam(":created_at", $created_at);
+            if($imagePath) {
+                $stmt->bindParam(":image", $imagePath, PDO::PARAM_STR);
+            }
+
+            return $stmt->execute();
+        }
     
     }
