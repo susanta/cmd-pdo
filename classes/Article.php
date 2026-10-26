@@ -196,5 +196,37 @@
 
             return $stmt->execute();
         }
+
+        public function generateDummyData($num = 1) {
+            $query = "INSERT INTO " . $this->table . " (title, content, user_id, created_at, image) VALUES (:title, :content, :user_id, :created_at, :image)";
+
+            $stmt = $this->conn->prepare($query);
+
+            $dummy_titles = [
+                'The Future of Technology', 'The Importance of Education',
+                'How to Stay Productive', 'A Guide to Healthy Living',
+                'Exploring the World of Science', 'Understanding Mental Health',
+                'The Rise of AI', 'The Power of Positive Thinking',
+                'Achieving Financial Freedom', 'The Benefits of Exercise'
+            ];
+
+            $dummy_content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc.";
+            $dummy_image = "https://via.placeholder.com/1200x600";
+            $dummy_user_id = $_SESSION['user_id'];
+            $created_at = date('Y-m-d');
+
+            for($i = 0; $i < $num; $i++){
+                $title = $dummy_titles[array_rand($dummy_titles)];
+                $stmt->bindParam(':title', $title);
+                $stmt->bindParam(':content', $dummy_content);
+                $stmt->bindParam(':user_id', $dummy_user_id);
+                $stmt->bindParam(':created_at', $created_at);
+                $stmt->bindParam(':image', $dummy_image);
+
+                $stmt->execute();
+            }
+
+            return true;
+        }
     
     }
