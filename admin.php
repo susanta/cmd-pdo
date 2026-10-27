@@ -33,6 +33,7 @@
         <table class="table table-bordered table-hover align-middle">
             <thead class="table-dark">
                 <tr>
+                    <th><input type="checkbox" name="" id="selectAll"></th>
                     <th>ID</th>
                     <th>Title</th>
                     <th>Author</th>
@@ -46,6 +47,7 @@
                 <?php if(!empty($userArticles)) : ?>
                     <?php foreach($userArticles as $userArticleItem) : ?>
                         <tr>
+                            <td><input type="checkbox" value="<?php echo $userArticleItem->id ?>" class="articleCheckbox"></td>
                             <td><?php echo $userArticleItem->id ?></td>
                             <td><?php echo $userArticleItem->title ?></td>
                             <td><?php echo $_SESSION['username'] ?></td>
@@ -70,5 +72,38 @@
         </table>
     </div>
 </main>
+
+<script>
+    // select or deselct all checkboxes
+    document.getElementById("selectAll").onclick = function() {
+        let checkboxes = document.querySelectorAll(".articleCheckbox");
+
+        for(let checkbox of checkboxes) {
+            checkbox.checked = this.checked;
+        }
+    }
+
+    document.getElementById("deleteSelectedBtn").onclick = function() {
+        let selectedIds = [];
+        let checkboxes = document.querySelectorAll(".articleCheckbox:checked");
+
+        checkboxes.forEach(checkbox => {
+            selectedIds.push(checkbox.value);
+        });
+
+        if(selectedIds.length === 0) {
+            alert("Select al least one Id!");
+            return;
+        }
+
+        if(confirm("Are you sure you want to delete this articles?")) {
+            sendDeleteRequest(selectedIds);
+        }
+
+        function sendDeleteRequest(selectedIds) {
+            console.log("DELETE REQUEST");
+        }
+    }
+</script>
 
 <?php include "partials/admin/footer.php" ?>
