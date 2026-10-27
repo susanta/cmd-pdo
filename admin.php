@@ -41,6 +41,7 @@
                     <th>Excerpt</th>
                     <th>Edit</th>
                     <th>Delete</th>
+                    <th>Ajax Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -65,6 +66,7 @@
                                      <button class="btn btn-sm btn-danger">Delete</button>
                                 </form>
                             </td>
+                            <td><button data-id="<?php echo $userArticleItem->id; ?>" class="btn btn-sm btn-danger delete-single">Ajax delete</button></td>
                         </tr>
                     <?php endforeach; ?>
                 <?php endif; ?>                
@@ -98,11 +100,39 @@
 
         if(confirm("Are you sure you want to delete this articles?")) {
             sendDeleteRequest(selectedIds);
+        }   
+    }
+
+    document.querySelectorAll('.delete-single').forEach(button => {
+        button.onclick = function() {
+            let articleId = this.getAttribute("data-id");
+
+            if(confirm("Are you sure you want to delete this article" + articleId + "?")) {
+            sendDeleteRequest([articleId]);
+        }
+        }
+    });
+
+    function sendDeleteRequest(articleIds) {
+        
+        let xhr = new XMLHttpRequest();
+
+        xhr.open('POST', "<?php echo base_url('delete-articles.php'); ?>", true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onreadystatechange = function() {
+            if(xhr.readyState === 4 && xhr.status === 200) {
+                let response = JSON.parse(xhr.responseText);
+
+                if(response.success) {
+                    alert('Article(s) got deleted!');
+                    location.reload();
+                } else {
+                    alert('Failed to delete: ' + response.message);
+                }
+            }
         }
 
-        function sendDeleteRequest(selectedIds) {
-            console.log("DELETE REQUEST");
-        }
+        xhr.send(JSON.stringify({article_ids: articleIds}));
     }
 </script>
 
