@@ -21,7 +21,7 @@
              <button id="articleCount" class="btn btn-primary" type="submit">Generate Articles</button>
         </form>
 
-        <form method="post">
+        <form action="<?php echo base_url("reorder-articles.php"); ?>" method="post">
             <button type="submit" name="reorder_articles" class="btn btn-warning">Reorder Article ID's</button>
         </form>
 
