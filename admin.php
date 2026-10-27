@@ -14,9 +14,19 @@
 <main class="container my-5">
     <h2 class="mb-4">Welcome <?php echo $_SESSION['username'] ?> to your Admin Dashboard</h2>
 
-    <form action="create-dummy-articles.php" method="post">
-        <button type="submit" class="btn btn-primary mb-3">Generate Articles</button>
-    </form>
+    <div class="d-flex justify-content-between mb-4">
+        <form class="d-flex align-items-center" action="<?php echo base_url('create-dummy-articles.php'); ?>" method="post">
+            <label class="form-label me-2" for="articleCount">Number of Articles</label>
+            <input id="articleCount" min="1" style="width: 100px" class="form-control me-2" name="article_count" type="number">
+             <button id="articleCount" class="btn btn-primary" type="submit">Generate Articles</button>
+        </form>
+
+        <form method="post">
+            <button type="submit" name="reorder_articles" class="btn btn-warning">Reorder Article ID's</button>
+        </form>
+
+        <button id="deleteSelectedBtn" class="btn btn-danger">Delete Selected Articles</button>
+    </div>
 
     <!-- Articles Table -->
     <div class="table-responsive">
